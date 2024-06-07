@@ -1,4 +1,5 @@
 "use client";
+import { TaskType } from "@/components/Task";
 import TaskList from "@/components/TaskList";
 import { useState } from "react";
 import { DragDropContext, DropResult } from "react-beautiful-dnd";
@@ -121,12 +122,9 @@ const tasks = [
   },
 ];
 
-// indigo-400
-// purple-500
-// blue-500
-// red-500
-// emerald-500
+// kanban-project-user n94cZwPBk@_b7wB
 
+// mongodb+srv://kanban-project-user:<password>@kanban-project.ay8jkll.mongodb.net/
 export default function Home() {
   const [taskLists, setTaskLists] = useState(tasks);
 
@@ -156,6 +154,24 @@ export default function Home() {
     }
   };
 
+  const onAdd = (droppableId: string) => {
+    if (droppableId) {
+      let copiedTaskLists = [...taskLists];
+      let newTask: TaskType = {
+        id: "124123123",
+        title: "newTask",
+        description: "test desc",
+        tags: [],
+        color: "red-500",
+      };
+      let destinationList = copiedTaskLists.find((list) => list.key == droppableId);
+      if (destinationList) {
+        destinationList.items.push(newTask);
+        setTaskLists(copiedTaskLists);
+      }
+    }
+  };
+
   return (
     <main className="min-h-screen pt-20 px-5 sm:px-10 md:px-20 lg:px-40">
       <div className="flex flex-wrap flex-col justify-start items-start mb-10">
@@ -166,7 +182,7 @@ export default function Home() {
       <div className="grid grid-cols-1 gap-5 mb-20 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
         <DragDropContext onDragEnd={onDragEnd}>
           {taskLists.map((taskList) => (
-            <TaskList key={taskList.key} taskList={taskList} />
+            <TaskList key={taskList.key} taskList={taskList} onAdd={onAdd} />
           ))}
         </DragDropContext>
       </div>
