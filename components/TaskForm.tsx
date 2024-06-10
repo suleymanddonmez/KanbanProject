@@ -5,6 +5,7 @@ import { TaskType } from "@/models/task";
 interface TaskFormPropsType {
   taskInfo: TaskType;
   onSave: Function;
+  onDelete?: Function;
   isLoading: boolean;
 }
 
@@ -51,7 +52,7 @@ const categories: SelectType[] = [
   },
 ];
 
-function TaskForm({ taskInfo, onSave, isLoading }: TaskFormPropsType) {
+function TaskForm({ taskInfo, onSave, onDelete, isLoading }: TaskFormPropsType) {
   const [title, setTitle] = useState<string>(taskInfo.title || "");
   const [description, setDescription] = useState<string>(taskInfo.description || "");
   const [tags, setTags] = useState<string[]>(taskInfo.tags || []);
@@ -78,6 +79,10 @@ function TaskForm({ taskInfo, onSave, isLoading }: TaskFormPropsType) {
         taskListId,
       });
     }
+  };
+
+  const handleDelete = () => {
+    onDelete?.();
   };
 
   return (
@@ -155,13 +160,24 @@ function TaskForm({ taskInfo, onSave, isLoading }: TaskFormPropsType) {
           </div>
 
           <div className="flex justify-between items-center">
-            <button
-              onClick={handleSave}
-              className="text-white bg-emerald-500 hover:bg-emerald-800 focus:ring-4 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center mt-5 transition-all"
-              disabled={isLoading}
-            >
-              {isLoading ? "Loading" : "Save Task"}
-            </button>
+            <div className="flex flex-wrap gap-2">
+              <button
+                onClick={handleSave}
+                className="text-white bg-emerald-500 hover:bg-emerald-800 focus:ring-4 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center mt-5 transition-all"
+                disabled={isLoading}
+              >
+                {isLoading ? "Loading" : "Save Task"}
+              </button>
+              {onDelete && (
+                <button
+                  onClick={handleDelete}
+                  className="text-white bg-red-500 hover:bg-red-800 focus:ring-4 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center mt-5 transition-all"
+                  disabled={isLoading}
+                >
+                  {isLoading ? "Loading" : "Delete Task"}
+                </button>
+              )}
+            </div>
             {error && (
               <div className={`py-1 px-2 bg-red-500 rounded-lg w-[40%] abso right-0 flex justify-between items-center font-bold`}>
                 {error}

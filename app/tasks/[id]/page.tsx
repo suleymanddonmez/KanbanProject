@@ -5,49 +5,6 @@ import { TaskType } from "@/models/task";
 import { fetchApi } from "../../api/BaseActions";
 import TaskForm from "@/components/TaskForm";
 
-interface SelectType {
-  text: string;
-  value: string;
-}
-
-const colors: SelectType[] = [
-  {
-    text: "Red",
-    value: "red-500",
-  },
-  {
-    text: "Blue",
-    value: "blue-500",
-  },
-  {
-    text: "Indigo",
-    value: "indigo-400",
-  },
-  {
-    text: "Emerald",
-    value: "emerald-500",
-  },
-  {
-    text: "Purple",
-    value: "purple-500",
-  },
-];
-
-const categories: SelectType[] = [
-  {
-    text: "Formatting",
-    value: "Formatting",
-  },
-  {
-    text: "Note interface",
-    value: "Note interface",
-  },
-  {
-    text: "New note",
-    value: "New note",
-  },
-];
-
 function TaskAction({ params }: { params: { id: string } }) {
   const [task, setTask] = useState<TaskType>();
   const [error, setError] = useState("");
@@ -66,7 +23,6 @@ function TaskAction({ params }: { params: { id: string } }) {
     const response = await fetchApi<TaskType>(`/api/tasks/${id}`, "PATCH", {
       task: { ...task, ...taskInfo },
     });
-    console.log("SD_", response);
     if (response.success) {
       router.back();
     } else {
@@ -86,6 +42,17 @@ function TaskAction({ params }: { params: { id: string } }) {
     setIsLoading(false);
   };
 
+  const delTask = async () => {
+    setIsLoading(true);
+    const response = await fetchApi<TaskType>(`/api/tasks/${id}`, "DELETE");
+    if (response.success && response.data) {
+      router.back();
+    } else {
+      setError(response.error || "An error occurred!");
+    }
+    setIsLoading(false);
+  };
+
   return (
     <>
       <div className="mb-10 lg:flex lg:justify-between lg:items-center">
@@ -96,21 +63,15 @@ function TaskAction({ params }: { params: { id: string } }) {
           </a>
         </div>
         <div className="flex gap-2">
-          <button
-            className="text-xl font-bold p-5 rounded-2xl bg-indigo-400 cursor-pointer hover:bg-neutral-600 transition-all"
-            onClick={() => router.push(`/`)}
-          >
+          <button className="text-xl font-bold p-5 rounded-2xl bg-indigo-400 cursor-pointer hover:bg-neutral-600 transition-all" onClick={() => router.push(`/`)}>
             Home
           </button>
-          <button
-            className="text-xl font-bold p-5 rounded-2xl bg-indigo-400 cursor-pointer hover:bg-neutral-600 transition-all"
-            onClick={() => router.back()}
-          >
+          <button className="text-xl font-bold p-5 rounded-2xl bg-indigo-400 cursor-pointer hover:bg-neutral-600 transition-all" onClick={() => router.back()}>
             Return To Project
           </button>
         </div>
       </div>
-      {!task && isLoading ? <div className="text-2xl">Loading...</div> : task && <TaskForm taskInfo={task} onSave={saveTask} isLoading={isLoading} />}
+      {!task && isLoading ? <div className="text-2xl">Loading...</div> : task && <TaskForm taskInfo={task} onSave={saveTask} onDelete={delTask} isLoading={isLoading} />}
     </>
   );
 }

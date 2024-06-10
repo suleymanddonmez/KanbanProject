@@ -47,11 +47,15 @@ export async function DELETE(request: NextRequest, { params }: { params: { id: s
   }
 }
 
-export async function PATCH(request: NextRequest) {
+export async function PATCH(request: NextRequest, { params }: { params: { id: string } }) {
   let baseResponse: BaseResponseType<TaskType> = {
     success: false,
   };
   try {
+    const { id } = params;
+    if (!id) {
+      throw new Error("Task id required!");
+    }
     const { task, order } = await request.json();
     if (!task) {
       throw new Error("Task info required!");
@@ -59,12 +63,12 @@ export async function PATCH(request: NextRequest) {
     await connect();
 
     if (order) {
-      const taskInfo = await Task.findByIdAndUpdate(task.id, { ...task, order: order });
+      const taskInfo = await Task.findByIdAndUpdate(id, { ...task, order: order });
       const serializedTaskInfo = await serializer.serializeTask(taskInfo);
       baseResponse.success = true;
       baseResponse.data = serializedTaskInfo;
     } else {
-      const taskInfo = await Task.findByIdAndUpdate(task.id, { ...task });
+      const taskInfo = await Task.findByIdAndUpdate(id, { ...task });
       const serializedTaskInfo = await serializer.serializeTask(taskInfo);
       baseResponse.success = true;
       baseResponse.data = serializedTaskInfo;
