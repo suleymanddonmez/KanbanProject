@@ -5,7 +5,7 @@ import serializer from "../../../../serializers/task";
 import { BaseResponseType } from "../../BaseActions";
 
 export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
-  let baseResponse: BaseResponseType<TaskType[]> = {
+  let baseResponse: BaseResponseType<TaskType> = {
     success: false,
   };
   try {
@@ -14,11 +14,11 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
       throw new Error("Task id required!");
     }
     await connect();
-    const tasks: TaskDbType[] = await Task.find();
-    const serializedTasks = await Promise.all(tasks.map(async (task) => await serializer.serializeTask(task)));
+    const task = await Task.findById(id);
+    const serializedTask = await serializer.serializeTask(task);
 
     baseResponse.success = true;
-    baseResponse.data = serializedTasks;
+    baseResponse.data = serializedTask;
     return NextResponse.json(baseResponse, { status: 200 });
   } catch (error) {
     baseResponse.error = error instanceof Error ? error.message : String(error);
@@ -35,10 +35,41 @@ export async function DELETE(request: NextRequest, { params }: { params: { id: s
     if (!id) {
       throw new Error("Task id required!");
     }
+    await connect();
     const task = await Task.findByIdAndDelete(id);
     const serializedTask = await serializer.serializeTask(task);
     baseResponse.success = true;
     baseResponse.data = serializedTask;
+    return NextResponse.json(baseResponse, { status: 200 });
+  } catch (error) {
+    baseResponse.error = error instanceof Error ? error.message : String(error);
+    return NextResponse.json(baseResponse, { status: 400 });
+  }
+}
+
+export async function PATCH(request: NextRequest) {
+  let baseResponse: BaseResponseType<TaskType> = {
+    success: false,
+  };
+  try {
+    const { task, order } = await request.json();
+    if (!task) {
+      throw new Error("Task info required!");
+    }
+    await connect();
+
+    if (order) {
+      const taskInfo = await Task.findByIdAndUpdate(task.id, { ...task, order: order });
+      const serializedTaskInfo = await serializer.serializeTask(taskInfo);
+      baseResponse.success = true;
+      baseResponse.data = serializedTaskInfo;
+    } else {
+      const taskInfo = await Task.findByIdAndUpdate(task.id, { ...task });
+      const serializedTaskInfo = await serializer.serializeTask(taskInfo);
+      baseResponse.success = true;
+      baseResponse.data = serializedTaskInfo;
+    }
+
     return NextResponse.json(baseResponse, { status: 200 });
   } catch (error) {
     baseResponse.error = error instanceof Error ? error.message : String(error);

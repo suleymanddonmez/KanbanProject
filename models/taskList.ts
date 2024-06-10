@@ -13,7 +13,7 @@ export interface TaskListType {
   key: string;
   title: string;
   projectId: string;
-  items?: TaskType[];
+  items: TaskType[];
 }
 
 const taskListSchema = new mongoose.Schema({

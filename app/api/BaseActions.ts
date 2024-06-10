@@ -1,3 +1,5 @@
+import axios, { AxiosError } from "axios";
+
 export interface BaseResponseType<T> {
   success: boolean;
   data?: T;
@@ -19,6 +21,8 @@ export async function fetchApi<T>(route: string, method: string = "GET", params?
     return await postApi<T>(route, params);
   } else if (method === "DELETE") {
     return await deleteApi<T>(route, params);
+  } else if (method === "PATCH") {
+    return await patchApi<T>(route, params);
   } else {
     return await getApi<T>(route);
   }
@@ -27,17 +31,15 @@ export async function fetchApi<T>(route: string, method: string = "GET", params?
 async function getApi<T>(route: string) {
   const hostname = getUrl();
   try {
-    return fetch(`${hostname}${route}`)
-      .then((fetchResponse) => {
-        return fetchResponse.json();
+    return axios
+      .get<BaseResponseType<T>>(`${hostname}${route}`)
+      .then(function (response) {
+        return response.data;
       })
-      .then((response) => {
-        return response as BaseResponseType<T>;
-      })
-      .catch((error) => {
+      .catch(function (axiosError: AxiosError) {
         return {
           success: false,
-          error: error instanceof Error ? error.message : String(error),
+          error: axiosError.response?.data || axiosError.message,
         } as BaseResponseType<T>;
       });
   } catch (error) {
@@ -51,23 +53,15 @@ async function getApi<T>(route: string) {
 async function postApi<T>(route: string, params: object) {
   const hostname = getUrl();
   try {
-    return fetch(`${hostname}${route}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(params),
-    })
-      .then((fetchResponse) => {
-        return fetchResponse.json();
+    return axios
+      .post<BaseResponseType<T>>(`${hostname}${route}`, params)
+      .then(function (response) {
+        return response.data;
       })
-      .then((response) => {
-        return response as BaseResponseType<T>;
-      })
-      .catch((error) => {
+      .catch(function (axiosError: AxiosError) {
         return {
           success: false,
-          error: error instanceof Error ? error.message : String(error),
+          error: axiosError.response?.data || axiosError.message,
         } as BaseResponseType<T>;
       });
   } catch (error) {
@@ -81,22 +75,37 @@ async function postApi<T>(route: string, params: object) {
 async function deleteApi<T>(route: string, params: object) {
   const hostname = getUrl();
   try {
-    return fetch(`${hostname}${route}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((fetchResponse) => {
-        return fetchResponse.json();
+    return axios
+      .delete<BaseResponseType<T>>(`${hostname}${route}`)
+      .then(function (response) {
+        return response.data;
       })
-      .then((response) => {
-        return response as BaseResponseType<T>;
-      })
-      .catch((error) => {
+      .catch(function (axiosError: AxiosError) {
         return {
           success: false,
-          error: error instanceof Error ? error.message : String(error),
+          error: axiosError.response?.data || axiosError.message,
+        } as BaseResponseType<T>;
+      });
+  } catch (error) {
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : String(error),
+    } as BaseResponseType<T>;
+  }
+}
+
+async function patchApi<T>(route: string, params: object) {
+  const hostname = getUrl();
+  try {
+    return axios
+      .patch<BaseResponseType<T>>(`${hostname}${route}`, params)
+      .then(function (response) {
+        return response.data;
+      })
+      .catch(function (axiosError: AxiosError) {
+        return {
+          success: false,
+          error: axiosError.response?.data || axiosError.message,
         } as BaseResponseType<T>;
       });
   } catch (error) {

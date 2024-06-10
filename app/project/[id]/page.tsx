@@ -29,41 +29,46 @@ function Roadmap({ params }: { params: { id: string } }) {
     setIsLoading(false);
   };
 
-  const onDragEnd = (result: DropResult) => {
-    // let copiedTaskLists = [...taskLists];
-    // let source = result.source;
-    // let destination = result.destination;
-    // if (source && destination) {
-    //   let sourceList = copiedTaskLists.find((list) => list.key == source.droppableId);
-    //   let destinationList = copiedTaskLists.find((list) => list.key == destination.droppableId);
-    //   if (sourceList && destinationList) {
-    //     let draggableItemIndex = sourceList.items.findIndex((i) => i.id == result.draggableId);
-    //     if (draggableItemIndex > -1) {
-    //       let draggableItem = sourceList.items[draggableItemIndex];
-    //       sourceList.items.splice(draggableItemIndex, 1);
-    //       destinationList.items = [...destinationList.items.slice(0, destination.index), draggableItem, ...destinationList.items.slice(destination.index)];
-    //     }
-    //     setTaskLists(copiedTaskLists);
-    //   }
-    // }
+  const updateProject = async (project: ProjectType) => {
+    const response = await fetchApi<ProjectType>(`/api/projects/${id}`, "PATCH", {
+      project: project,
+    });
+    if (response.success && response.data) {
+      setProject(response.data);
+    }
   };
 
-  const onAdd = (droppableId: string) => {
-    // if (droppableId) {
-    //   let copiedTaskLists = [...taskLists];
-    //   let newTask: TaskType = {
-    //     id: "124123123",
-    //     title: "newTask",
-    //     description: "test desc",
-    //     tags: [],
-    //     color: "red-500",
-    //   };
-    //   let destinationList = copiedTaskLists.find((list) => list.key == droppableId);
-    //   if (destinationList) {
-    //     destinationList.items.push(newTask);
-    //     setTaskLists(copiedTaskLists);
-    //   }
-    // }
+  const onDragEnd = (result: DropResult) => {
+    if (project) {
+      let copiedProject: ProjectType = {
+        id: project.id,
+        key: project.key,
+        title: project.title,
+        items: project.items ? [...project.items] : [],
+      };
+
+      let source = result.source;
+      let destination = result.destination;
+      if (source && destination) {
+        let sourceList = copiedProject.items.find((list) => list.id == source.droppableId);
+        let destinationList = copiedProject.items.find((list) => list.id == destination.droppableId);
+        if (sourceList && destinationList) {
+          let draggableItemIndex = sourceList.items.findIndex((i) => i.id == result.draggableId);
+          if (draggableItemIndex > -1) {
+            let draggableItem = sourceList.items[draggableItemIndex];
+            draggableItem.taskListId = destination.droppableId;
+            sourceList.items.splice(draggableItemIndex, 1);
+            destinationList.items = [
+              ...destinationList.items.slice(0, destination.index),
+              draggableItem,
+              ...destinationList.items.slice(destination.index),
+            ];
+          }
+          setProject(copiedProject);
+          updateProject(copiedProject);
+        }
+      }
+    }
   };
 
   const deleteProject = async () => {
@@ -81,7 +86,10 @@ function Roadmap({ params }: { params: { id: string } }) {
         <div className="flex flex-wrap flex-col justify-start items-start mb-10">
           <h1 className="text-4xl font-bold mb-3 flex items-center">
             {project?.title && `${project.title} `}Roadmap
-            <button className="text-xs font-bold p-2 rounded-2xl bg-red-500 cursor-pointer hover:bg-neutral-600 transition-all mx-3" onClick={() => deleteProject()}>
+            <button
+              className="w-[30px] h-[30px] flex items-center justify-center text-xs font-bold p-2 rounded-2xl bg-red-500 cursor-pointer hover:bg-neutral-600 transition-all mx-3"
+              onClick={() => deleteProject()}
+            >
               X
             </button>
           </h1>
@@ -90,7 +98,10 @@ function Roadmap({ params }: { params: { id: string } }) {
           </a>
         </div>
         <div className="flex gap-2">
-          <button className="text-xl font-bold p-5 rounded-2xl bg-indigo-400 cursor-pointer hover:bg-neutral-600 transition-all" onClick={() => router.push(`/`)}>
+          <button
+            className="text-xl font-bold p-5 rounded-2xl bg-indigo-400 cursor-pointer hover:bg-neutral-600 transition-all"
+            onClick={() => router.push(`/`)}
+          >
             Home
           </button>
           <button
@@ -107,7 +118,7 @@ function Roadmap({ params }: { params: { id: string } }) {
         <div className="grid grid-cols-1 gap-5 mb-20 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
           <DragDropContext onDragEnd={onDragEnd}>
             {project.items.map((taskList, index) => (
-              <TaskList key={taskList.key} taskList={taskList} onAdd={onAdd} />
+              <TaskList key={taskList.key} taskList={taskList} />
             ))}
           </DragDropContext>
         </div>

@@ -11,7 +11,7 @@ export interface ProjectType {
   id: string;
   key: string;
   title: string;
-  items?: TaskListType[];
+  items: TaskListType[];
 }
 
 const projectSchema = new mongoose.Schema({

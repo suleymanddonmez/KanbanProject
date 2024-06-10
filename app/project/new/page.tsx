@@ -37,7 +37,7 @@ function NewProject() {
 
   return (
     <>
-      <div className="flex justify-between items-center">
+      <div className="mb-10 lg:flex lg:justify-between lg:items-center">
         <div className="flex flex-wrap flex-col justify-start items-start mb-10">
           <h1 className="text-4xl font-bold mb-3">New Project</h1>
           <a className="text-md underline text-gray-300" href="https://www.linkedin.com/in/suleymanddonmez/" target="_blank">

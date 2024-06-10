@@ -7,6 +7,7 @@ export interface TaskDbType {
   tags: string[];
   color: string;
   taskListId: string;
+  order: number;
   _v: string;
 }
 
@@ -24,6 +25,7 @@ const taskSchema = new mongoose.Schema({
   description: { type: String },
   tags: { type: [String] },
   color: { type: String },
+  order: { type: Number },
   taskListId: { type: mongoose.Schema.Types.ObjectId, ref: "TaskList", required: true },
 });
 

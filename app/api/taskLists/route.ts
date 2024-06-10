@@ -12,7 +12,9 @@ export async function GET(request: NextRequest) {
   try {
     await connect();
     const taskLists: TaskListDbType[] = await TaskList.find();
-    const serializedTaskLists = await Promise.all(taskLists.map(async (taskList) => await serializer.serializeTaskListWithTasks(taskList, new URL(request.url).origin)));
+    const serializedTaskLists = await Promise.all(
+      taskLists.map(async (taskList) => await serializer.serializeTaskListWithTasks(taskList, new URL(request.url).origin))
+    );
     baseResponse.success = true;
     baseResponse.data = serializedTaskLists;
     return NextResponse.json(baseResponse, { status: 200 });
@@ -28,6 +30,7 @@ export async function POST(request: NextRequest) {
   };
   const body = await request.json();
   try {
+    await connect();
     // control project existing
     const hostname = new URL(request.url).origin;
     const response = await fetchApi<ProjectType>(`${hostname}/api/projects/${body.projectId}`);

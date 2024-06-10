@@ -29,11 +29,19 @@ export async function POST(request: NextRequest) {
   };
   const body = await request.json();
   try {
+    await connect();
     // control taskList existing
     const hostname = new URL(request.url).origin;
     const response = await fetchApi<TaskListType>(`${hostname}/api/taskLists/${body.taskListId}`);
     if (response.success) {
-      const task = await Task.create({ title: body.title, description: body.description, tags: body.tags, color: body.color, taskListId: body.taskListId });
+      const task = await Task.create({
+        title: body.title,
+        description: body.description,
+        tags: body.tags,
+        color: body.color,
+        taskListId: body.taskListId,
+        order: 0
+      });
       const serializedTask = await serializer.serializeTask(task);
       baseResponse.success = true;
       baseResponse.data = serializedTask;

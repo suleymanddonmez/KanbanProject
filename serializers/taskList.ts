@@ -8,14 +8,13 @@ const serializeTaskList = async (taskList: TaskListDbType) => {
     key: taskList.title.toLowerCase().replace(/\s+/g, "-"),
     title: taskList.title,
     projectId: taskList.projectId,
+    items: [],
   };
 };
 
 const serializeTaskListWithTasks = async (taskList: TaskListDbType, hostname: string) => {
   let tasks: TaskType[] = [];
-  console.log("SD_1");
   const response = await fetchApi<TaskType[]>(`${hostname}/api/tasks/filter/${taskList._id}`);
-  console.log("SD_3");
   if (response.success && response.data) {
     tasks = response.data;
   }
