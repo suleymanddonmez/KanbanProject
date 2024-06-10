@@ -2,17 +2,20 @@ import { NextRequest, NextResponse } from "next/server";
 import connect from "../../../../../db";
 import TaskList, { TaskListDbType, TaskListType } from "../../../../../models/taskList";
 import serializer from "../../../../../serializers/taskList";
-import { BaseResponseType } from "../../../BaseResponse";
+import { BaseResponseType } from "../../../BaseActions";
 
-export async function GET(request: NextRequest) {
+export async function GET(request: NextRequest, { params }: { params: { projectId: string } }) {
   let baseResponse: BaseResponseType<TaskListType[]> = {
     success: false,
   };
   try {
+    const { projectId } = params;
+    if (!projectId) {
+      throw new Error("Project id required!");
+    }
     await connect();
-    const taskLists: TaskListDbType[] = await TaskList.find();
+    const taskLists: TaskListDbType[] = await TaskList.find({ projectId: projectId });
     const serializedTaskLists = await Promise.all(taskLists.map(async (taskList) => await serializer.serializeTaskListWithTasks(taskList, new URL(request.url).origin)));
-
     baseResponse.success = true;
     baseResponse.data = serializedTaskLists;
     return NextResponse.json(baseResponse, { status: 200 });

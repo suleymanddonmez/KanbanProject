@@ -1,20 +1,21 @@
 import { NextRequest, NextResponse } from "next/server";
 import connect from "../../../db";
-import TaskList, { TaskListDbType, TaskListType } from "../../../models/taskList";
-import { ProjectType } from "../../../models/project";
-import serializer from "../../../serializers/taskList";
+import Task, { TaskDbType, TaskType } from "../../../models/task";
+import { TaskListType } from "@/models/taskList";
+import serializer from "../../../serializers/task";
 import { BaseResponseType, fetchApi } from "../BaseActions";
 
 export async function GET(request: NextRequest) {
-  let baseResponse: BaseResponseType<TaskListType[]> = {
+  let baseResponse: BaseResponseType<TaskType[]> = {
     success: false,
   };
   try {
     await connect();
-    const taskLists: TaskListDbType[] = await TaskList.find();
-    const serializedTaskLists = await Promise.all(taskLists.map(async (taskList) => await serializer.serializeTaskListWithTasks(taskList, new URL(request.url).origin)));
+    const tasks: TaskDbType[] = await Task.find();
+    const serializeTasks = await Promise.all(tasks.map(async (task) => await serializer.serializeTask(task)));
+
     baseResponse.success = true;
-    baseResponse.data = serializedTaskLists;
+    baseResponse.data = serializeTasks;
     return NextResponse.json(baseResponse, { status: 200 });
   } catch (error) {
     baseResponse.error = error instanceof Error ? error.message : String(error);
@@ -23,22 +24,22 @@ export async function GET(request: NextRequest) {
 }
 
 export async function POST(request: NextRequest) {
-  let baseResponse: BaseResponseType<TaskListType> = {
+  let baseResponse: BaseResponseType<TaskType> = {
     success: false,
   };
   const body = await request.json();
   try {
-    // control project existing
+    // control taskList existing
     const hostname = new URL(request.url).origin;
-    const response = await fetchApi<ProjectType>(`${hostname}/api/projects/${body.projectId}`);
+    const response = await fetchApi<TaskListType>(`${hostname}/api/taskLists/${body.taskListId}`);
     if (response.success) {
-      const taskList = await TaskList.create({ title: body.title, projectId: body.projectId });
-      const serializedTaskList = await serializer.serializeTaskList(taskList);
+      const task = await Task.create({ title: body.title, description: body.description, tags: body.tags, color: body.color, taskListId: body.taskListId });
+      const serializedTask = await serializer.serializeTask(task);
       baseResponse.success = true;
-      baseResponse.data = serializedTaskList;
+      baseResponse.data = serializedTask;
       return NextResponse.json(baseResponse, { status: 200 });
     } else {
-      throw new Error("Project not found!");
+      throw new Error("Task List not found!");
     }
   } catch (error) {
     baseResponse.error = error instanceof Error ? error.message : String(error);

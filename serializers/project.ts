@@ -1,4 +1,4 @@
-import { BaseResponseType } from "@/app/api/BaseResponse";
+import { fetchApi } from "@/app/api/BaseActions";
 import { ProjectDbType } from "@/models/project";
 import { TaskListType } from "@/models/taskList";
 
@@ -10,18 +10,11 @@ const serializeProject = async (project: ProjectDbType) => {
   };
 };
 
-const serializeProjectWithTaskLists = async (project: ProjectDbType, hostName: string) => {
+const serializeProjectWithTaskLists = async (project: ProjectDbType, hostname: string) => {
   let taskLists: TaskListType[] = [];
-  try {
-    const fetchResponse = await fetch(`${hostName}/api/taskLists/filter/${project._id}`);
-    if (fetchResponse.ok) {
-      let taskListsResponse: BaseResponseType<TaskListType[]> = await fetchResponse.json();
-      if (taskListsResponse.success && taskListsResponse.data) {
-        taskLists = taskListsResponse.data;
-      }
-    }
-  } catch (error) {
-    console.error("TaskLists alınırrken hata oluştu:", error);
+  const response = await fetchApi<TaskListType[]>(`${hostname}/api/taskLists/filter/${project._id}`);
+  if (response.success && response.data) {
+    taskLists = response.data;
   }
   return {
     ...(await serializeProject(project)),

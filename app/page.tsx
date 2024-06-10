@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { ProjectType } from "@/models/project";
-import { BaseResponseType } from "./api/BaseResponse";
+import { fetchApi } from "./api/BaseActions";
 
 export default function Home() {
   const [projects, setProjects] = useState<ProjectType[]>();
@@ -15,15 +15,12 @@ export default function Home() {
 
   const getProjects = async () => {
     setIsLoading(true);
-    try {
-      const fetchResponse = await fetch("/api/projects");
-      if (fetchResponse.ok) {
-        const Response: BaseResponseType<ProjectType[]> = await fetchResponse.json();
-        if (Response.success) {
-          setProjects(Response.data);
-        }
-      }
-    } catch (error) {}
+    const response = await fetchApi<ProjectType[]>("/api/projects");
+    if (response.success) {
+      setProjects(response.data);
+    } else {
+      console.log(response.error);
+    }
     setIsLoading(false);
   };
 
@@ -39,8 +36,10 @@ export default function Home() {
     <>
       <div className="flex justify-between items-center">
         <div className="flex flex-wrap flex-col justify-start items-start mb-10">
-          <h1 className="text-4xl font-bold mb-3">Roadmap</h1>
-          <p className="text-md underline text-gray-300">by Süleyman Dönmez</p>
+          <h1 className="text-4xl font-bold mb-3">All Projects</h1>
+          <a className="text-md underline text-gray-300" href="https://www.linkedin.com/in/suleymanddonmez/" target="_blank">
+            by Süleyman Dönmez
+          </a>
         </div>
         <button className="text-xl font-bold p-5 rounded-2xl bg-indigo-500 cursor-pointer hover:bg-neutral-600 transition-all" onClick={() => handleAddProjectClick()}>
           + New Project
@@ -54,7 +53,7 @@ export default function Home() {
           {projects.map((project, index) => (
             <div
               key={project.id}
-              className="p-10 rounded-3xl bg-red-800 cursor-pointer hover:bg-neutral-600 transition-all"
+              className="p-10 rounded-3xl bg-neutral-800 cursor-pointer hover:bg-neutral-600 transition-all"
               onClick={() => {
                 handleProjectClick(project.id);
               }}

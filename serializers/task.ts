@@ -7,6 +7,7 @@ const serializeTask = async (task: TaskDbType) => {
     description: task.description,
     tags: task.tags,
     color: task.color,
+    taskListId: task.taskListId,
   };
 };
 

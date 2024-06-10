@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { ProjectType } from "@/models/project";
-import { BaseResponseType } from "../../api/BaseResponse";
+import { fetchApi } from "../../api/BaseActions";
 import { DragDropContext, DropResult } from "react-beautiful-dnd";
 import TaskList from "@/components/TaskList";
 
@@ -20,15 +20,12 @@ function Roadmap({ params }: { params: { id: string } }) {
 
   const getProject = async (id: string) => {
     setIsLoading(true);
-    try {
-      const fetchResponse = await fetch(`/api/projects/${id}`);
-      if (fetchResponse.ok) {
-        const Response: BaseResponseType<ProjectType> = await fetchResponse.json();
-        if (Response.success) {
-          setProject(Response.data);
-        }
-      }
-    } catch (error) {}
+    const response = await fetchApi<ProjectType>(`/api/projects/${id}`);
+    if (response.success) {
+      setProject(response.data);
+    } else {
+      console.log(response.error);
+    }
     setIsLoading(false);
   };
 
@@ -69,15 +66,40 @@ function Roadmap({ params }: { params: { id: string } }) {
     // }
   };
 
-  const handleTaskClick = (projectId: string) => {
-    router.push(`/task/${projectId}`);
+  const deleteProject = async () => {
+    const response = await fetchApi<ProjectType>(`/api/projects/${id}`, "DELETE");
+    if (response.success) {
+      router.push(`/`);
+    } else {
+      console.log(response.error);
+    }
   };
 
   return (
     <>
-      <div className="flex flex-wrap flex-col justify-start items-start mb-10">
-        <h1 className="text-4xl font-bold mb-3">Roadmap {project?.title && `(${project.title})`}</h1>
-        <p className="text-md underline text-gray-300">by Süleyman Dönmez</p>
+      <div className="mb-10 lg:flex lg:justify-between lg:items-center">
+        <div className="flex flex-wrap flex-col justify-start items-start mb-10">
+          <h1 className="text-4xl font-bold mb-3 flex items-center">
+            {project?.title && `${project.title} `}Roadmap
+            <button className="text-xs font-bold p-2 rounded-2xl bg-red-500 cursor-pointer hover:bg-neutral-600 transition-all mx-3" onClick={() => deleteProject()}>
+              X
+            </button>
+          </h1>
+          <a className="text-md underline text-gray-300" href="https://www.linkedin.com/in/suleymanddonmez/" target="_blank">
+            by Süleyman Dönmez
+          </a>
+        </div>
+        <div className="flex gap-2">
+          <button className="text-xl font-bold p-5 rounded-2xl bg-indigo-400 cursor-pointer hover:bg-neutral-600 transition-all" onClick={() => router.push(`/`)}>
+            Home
+          </button>
+          <button
+            className="text-xl font-bold p-5 rounded-2xl bg-indigo-500 cursor-pointer hover:bg-neutral-600 transition-all"
+            onClick={() => router.push(`/taskLists/new/${id}`)}
+          >
+            + New Task List
+          </button>
+        </div>
       </div>
       {isLoading ? (
         <div className="text-2xl">Loading...</div>

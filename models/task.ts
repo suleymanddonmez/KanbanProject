@@ -16,6 +16,7 @@ export interface TaskType {
   description: string;
   tags: string[];
   color: string;
+  taskListId: string;
 }
 
 const taskSchema = new mongoose.Schema({

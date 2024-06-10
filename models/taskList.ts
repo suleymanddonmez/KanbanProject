@@ -12,6 +12,7 @@ export interface TaskListType {
   id: string;
   key: string;
   title: string;
+  projectId: string;
   items?: TaskType[];
 }
 

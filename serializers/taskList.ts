@@ -1,4 +1,4 @@
-import { BaseResponseType } from "@/app/api/BaseResponse";
+import { fetchApi } from "@/app/api/BaseActions";
 import { TaskType } from "@/models/task";
 import { TaskListDbType } from "@/models/taskList";
 
@@ -7,22 +7,17 @@ const serializeTaskList = async (taskList: TaskListDbType) => {
     id: taskList._id,
     key: taskList.title.toLowerCase().replace(/\s+/g, "-"),
     title: taskList.title,
+    projectId: taskList.projectId,
   };
 };
 
-const serializeTaskListWithTasks = async (taskList: TaskListDbType, hostName: string) => {
+const serializeTaskListWithTasks = async (taskList: TaskListDbType, hostname: string) => {
   let tasks: TaskType[] = [];
-  try {
-    const fetchResponse = await fetch(`${hostName}/api/tasks/filter/${taskList._id}`);
-    if (fetchResponse.ok) {
-      let tasksResponse: BaseResponseType<TaskType[]> = await fetchResponse.json();
-      if (tasksResponse.success && tasksResponse.data) {
-        tasks = tasksResponse.data;
-      }
-    } else {
-    }
-  } catch (error) {
-    console.error("Tasks alınırrken hata oluştu:", error);
+  console.log("SD_1");
+  const response = await fetchApi<TaskType[]>(`${hostname}/api/tasks/filter/${taskList._id}`);
+  console.log("SD_3");
+  if (response.success && response.data) {
+    tasks = response.data;
   }
   return {
     ...(await serializeTaskList(taskList)),
