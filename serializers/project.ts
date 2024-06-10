@@ -1,5 +1,5 @@
 import { fetchApi } from "@/app/api/BaseActions";
-import { defaultTaskLists } from "@/app/api/projects/route";
+import { defaultTaskLists } from "@/models/taskList";
 import { ProjectDbType } from "@/models/project";
 import { TaskListType } from "@/models/taskList";
 

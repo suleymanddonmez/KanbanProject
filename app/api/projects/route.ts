@@ -3,8 +3,7 @@ import connect from "../../../db";
 import Project, { ProjectDbType, ProjectType } from "../../../models/project";
 import serializer from "../../../serializers/project";
 import { BaseResponseType, fetchApi } from "../BaseActions";
-
-export const defaultTaskLists = ["Backlog", "To do", "In progress", "Designed"];
+import { defaultTaskLists } from "@/models/taskList";
 
 export async function GET(request: NextRequest) {
   let baseResponse: BaseResponseType<ProjectType[]> = {

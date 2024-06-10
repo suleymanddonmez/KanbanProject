@@ -16,6 +16,8 @@ export interface TaskListType {
   items: TaskType[];
 }
 
+export const defaultTaskLists = ["Backlog", "To do", "In progress", "Designed"];
+
 const taskListSchema = new mongoose.Schema({
   title: { type: String, required: true },
   projectId: { type: mongoose.Schema.Types.ObjectId, ref: "Project", required: true },
