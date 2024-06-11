@@ -4,6 +4,7 @@ import { TaskListType } from "@/models/taskList";
 import { useRouter } from "next/navigation";
 import { fetchApi } from "@/app/api/BaseActions";
 import { useLayoutEffect, useRef, useState } from "react";
+import { notDeleteableProjectId } from "@/app/projects/[id]/page";
 
 interface TaskListPropsType {
   taskList: TaskListType;
@@ -20,9 +21,14 @@ function TaskList({ taskList }: TaskListPropsType) {
   }, [items]);
 
   const deleteTaskList = async () => {
+    if (notDeleteableProjectId == taskList.projectId) {
+      alert("This project is example project. The task list is not deletable! Please try in another project.");
+      return;
+    }
+
     const response = await fetchApi<TaskListType>(`/api/taskLists/${id}`, "DELETE");
     if (response.success) {
-      router.push(`/`);
+      router.push(`/projects/${taskList.projectId}`);
     } else {
       console.log(response.error);
     }

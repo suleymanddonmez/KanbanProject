@@ -7,6 +7,8 @@ import { DragDropContext, DropResult } from "react-beautiful-dnd";
 import TaskList from "@/components/TaskList";
 import { Context } from "@/app/contextProvider";
 
+export const notDeleteableProjectId = "6666f966a149e14e2e550f39";
+
 function Roadmap({ params }: { params: { id: string } }) {
   const [project, setProject] = useState<ProjectType>();
   const [isLoading, setIsLoading] = useState(true);
@@ -81,6 +83,10 @@ function Roadmap({ params }: { params: { id: string } }) {
   };
 
   const deleteProject = async () => {
+    if (notDeleteableProjectId == id) {
+      alert("This project is example project. It is not deletable! Please try in another project.");
+      return;
+    }
     const response = await fetchApi<ProjectType>(`/api/projects/${id}`, "DELETE");
     if (response.success) {
       router.push(`/`);
