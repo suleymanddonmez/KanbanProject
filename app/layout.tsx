@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import RouterListener from "./routerListener";
 import ContextProvider from "./contextProvider";
+import { Analytics } from "@vercel/analytics/react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,6 +26,7 @@ export default function RootLayout({
             <RouterListener />
           </main>
         </ContextProvider>
+        <Analytics />
       </body>
     </html>
   );
