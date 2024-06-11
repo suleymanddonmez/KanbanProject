@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname, useRouter } from "next/navigation";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Context } from "./contextProvider";
 
 interface LastVisitedPageType {
@@ -12,6 +12,7 @@ interface LastVisitedPageType {
 const maxSavedPages = 10;
 
 function RouterListener() {
+  const [recentlyVisitedPages, setRecentlyVisitedPages] = useState<LastVisitedPageType[]>([]);
   const context = useContext(Context);
   const { title } = context;
 
@@ -19,8 +20,12 @@ function RouterListener() {
   const pathname = usePathname();
 
   useEffect(() => {
+    setRecentlyVisitedPages(getLastVisitedPages().reverse());
+  }, [pathname]);
+
+  useEffect(() => {
     addThisPageInLastVisitedPages?.();
-  }, [pathname, title]);
+  }, [title]);
 
   const getLastVisitedPages = () => {
     let lastVisitedPages: LastVisitedPageType[] = [];
@@ -45,37 +50,35 @@ function RouterListener() {
 
   const addThisPageInLastVisitedPages = () => {
     const pageInfo: LastVisitedPageType = {
-      pageTitle: title || document.title,
+      pageTitle: title,
       pathname: pathname,
     };
-    let lastVisitedPages = getLastVisitedPages();
-    // control if already exist
-    let existRecord = lastVisitedPages.find((lastPage) => lastPage.pathname == pageInfo.pathname);
-    if (existRecord) {
-      let index = lastVisitedPages.indexOf(existRecord);
-      lastVisitedPages.splice(index, 1);
-    }
+    if (pageInfo.pageTitle) {
+      let lastVisitedPages = getLastVisitedPages();
+      // control if already exist
+      let existRecord = lastVisitedPages.find((lastPage) => lastPage.pathname == pageInfo.pathname);
+      if (existRecord) {
+        let index = lastVisitedPages.indexOf(existRecord);
+        lastVisitedPages.splice(index, 1);
+      }
 
-    lastVisitedPages.push(pageInfo);
-    if (lastVisitedPages.length > maxSavedPages) {
-      lastVisitedPages = lastVisitedPages.slice(0, maxSavedPages);
+      lastVisitedPages.push(pageInfo);
+      if (lastVisitedPages.length > maxSavedPages) {
+        lastVisitedPages = lastVisitedPages.slice(0, maxSavedPages);
+      }
+      setLastVisitedPages(lastVisitedPages);
     }
-    setLastVisitedPages(lastVisitedPages);
   };
-
-  const lastVisitedPages = getLastVisitedPages().reverse();
 
   return (
     <>
-      {lastVisitedPages && (
-        <div className="flex overflow-hidden gap-3 fixed bottom-0 bg-slate-600 w-full">
-          {lastVisitedPages.map((lastPage, index) => (
-            <button key={index} className="font-bold p-2 hover:bg-slate-500 transition-all" onClick={() => router.push(lastPage.pathname)}>
-              {lastPage.pageTitle}
-            </button>
-          ))}
-        </div>
-      )}
+      <div className="flex overflow-hidden gap-3 fixed left-0 bottom-0 bg-slate-600 w-full">
+        {recentlyVisitedPages.map((lastPage, index) => (
+          <button key={index} className="font-bold p-2 hover:bg-slate-500 transition-all" onClick={() => router.push(lastPage.pathname)}>
+            {lastPage.pageTitle}
+          </button>
+        ))}
+      </div>
     </>
   );
 }

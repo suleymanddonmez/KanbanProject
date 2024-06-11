@@ -20,8 +20,10 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <ContextProvider>
-          <main className="min-h-screen pt-20 px-5 sm:px-10 md:px-20 lg:px-40">{children}</main>
-          <RouterListener />
+          <main className="min-h-screen pt-20 px-5 sm:px-10 md:px-20 lg:px-40">
+            {children}
+            <RouterListener />
+          </main>
         </ContextProvider>
       </body>
     </html>
