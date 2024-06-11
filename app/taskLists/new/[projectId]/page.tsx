@@ -1,15 +1,24 @@
 "use client";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { TaskListType } from "@/models/taskList";
 import { fetchApi } from "../../../api/BaseActions";
+import { Context } from "@/app/contextProvider";
 
 function NewTaskList({ params }: { params: { projectId: string } }) {
   const [title, setTitle] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const { projectId } = params;
+
   const router = useRouter();
+
+  const context = useContext(Context);
+  const { updateTitle } = context;
+
+  useEffect(() => {
+    updateTitle("New Task List");
+  }, []);
 
   const validateForm = () => {
     if (!title) {
@@ -28,7 +37,7 @@ function NewTaskList({ params }: { params: { projectId: string } }) {
         projectId: projectId,
       });
       if (response.success) {
-        router.push(`/project/${projectId}`);
+        router.push(`/projects/${projectId}`);
       } else {
         setError(response.error || "An error occurred!");
       }
@@ -46,10 +55,16 @@ function NewTaskList({ params }: { params: { projectId: string } }) {
           </a>
         </div>
         <div className="flex gap-2">
-          <button className="text-xl font-bold p-5 rounded-2xl bg-indigo-400 cursor-pointer hover:bg-neutral-600 transition-all" onClick={() => router.push(`/`)}>
+          <button
+            className="text-xl font-bold p-5 rounded-2xl bg-indigo-400 cursor-pointer hover:bg-neutral-600 transition-all"
+            onClick={() => router.push(`/`)}
+          >
             Home
           </button>
-          <button className="text-xl font-bold p-5 rounded-2xl bg-indigo-400 cursor-pointer hover:bg-neutral-600 transition-all" onClick={() => router.back()}>
+          <button
+            className="text-xl font-bold p-5 rounded-2xl bg-indigo-400 cursor-pointer hover:bg-neutral-600 transition-all"
+            onClick={() => router.back()}
+          >
             Return To Project
           </button>
         </div>

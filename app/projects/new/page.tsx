@@ -1,8 +1,9 @@
 "use client";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { ProjectType } from "@/models/project";
 import { fetchApi } from "../../api/BaseActions";
+import { Context } from "@/app/contextProvider";
 
 function NewProject() {
   const [title, setTitle] = useState("");
@@ -10,6 +11,13 @@ function NewProject() {
   const [isLoading, setIsLoading] = useState(false);
 
   const router = useRouter();
+
+  const context = useContext(Context);
+  const { updateTitle } = context;
+
+  useEffect(() => {
+    updateTitle("New Project");
+  }, []);
 
   const validateForm = () => {
     if (!title) {
@@ -45,7 +53,10 @@ function NewProject() {
           </a>
         </div>
         <div className="flex gap-2">
-          <button className="text-xl font-bold p-5 rounded-2xl bg-indigo-400 cursor-pointer hover:bg-neutral-600 transition-all" onClick={() => router.push(`/`)}>
+          <button
+            className="text-xl font-bold p-5 rounded-2xl bg-indigo-400 cursor-pointer hover:bg-neutral-600 transition-all"
+            onClick={() => router.push(`/`)}
+          >
             Home
           </button>
         </div>

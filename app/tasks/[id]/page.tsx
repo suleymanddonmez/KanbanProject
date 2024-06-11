@@ -1,16 +1,25 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { TaskType } from "@/models/task";
 import { fetchApi } from "../../api/BaseActions";
 import TaskForm from "@/components/TaskForm";
+import { Context } from "@/app/contextProvider";
 
 function TaskAction({ params }: { params: { id: string } }) {
   const [task, setTask] = useState<TaskType>();
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const { id } = params;
+
   const router = useRouter();
+
+  const context = useContext(Context);
+  const { updateTitle } = context;
+
+  useEffect(() => {
+    updateTitle(task?.title || "Task Detail");
+  }, [task]);
 
   useEffect(() => {
     if (id) {
@@ -63,15 +72,25 @@ function TaskAction({ params }: { params: { id: string } }) {
           </a>
         </div>
         <div className="flex gap-2">
-          <button className="text-xl font-bold p-5 rounded-2xl bg-indigo-400 cursor-pointer hover:bg-neutral-600 transition-all" onClick={() => router.push(`/`)}>
+          <button
+            className="text-xl font-bold p-5 rounded-2xl bg-indigo-400 cursor-pointer hover:bg-neutral-600 transition-all"
+            onClick={() => router.push(`/`)}
+          >
             Home
           </button>
-          <button className="text-xl font-bold p-5 rounded-2xl bg-indigo-400 cursor-pointer hover:bg-neutral-600 transition-all" onClick={() => router.back()}>
+          <button
+            className="text-xl font-bold p-5 rounded-2xl bg-indigo-400 cursor-pointer hover:bg-neutral-600 transition-all"
+            onClick={() => router.back()}
+          >
             Return To Project
           </button>
         </div>
       </div>
-      {!task && isLoading ? <div className="text-2xl">Loading...</div> : task && <TaskForm taskInfo={task} onSave={saveTask} onDelete={delTask} isLoading={isLoading} />}
+      {!task && isLoading ? (
+        <div className="text-2xl">Loading...</div>
+      ) : (
+        task && <TaskForm taskInfo={task} onSave={saveTask} onDelete={delTask} isLoading={isLoading} />
+      )}
     </>
   );
 }

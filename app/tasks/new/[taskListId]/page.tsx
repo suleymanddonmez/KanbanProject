@@ -1,15 +1,24 @@
 "use client";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { TaskType } from "@/models/task";
 import { fetchApi } from "../../../api/BaseActions";
 import TaskForm from "@/components/TaskForm";
+import { Context } from "@/app/contextProvider";
 
 function NewTask({ params }: { params: { taskListId: string } }) {
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const { taskListId } = params;
+
   const router = useRouter();
+
+  const context = useContext(Context);
+  const { updateTitle } = context;
+
+  useEffect(() => {
+    updateTitle("New Task");
+  }, []);
 
   const saveTask = async (taskInfo: TaskType) => {
     setIsLoading(true);

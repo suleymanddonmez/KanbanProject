@@ -1,16 +1,25 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { ProjectType } from "@/models/project";
 import { fetchApi } from "../../api/BaseActions";
 import { DragDropContext, DropResult } from "react-beautiful-dnd";
 import TaskList from "@/components/TaskList";
+import { Context } from "@/app/contextProvider";
 
 function Roadmap({ params }: { params: { id: string } }) {
   const [project, setProject] = useState<ProjectType>();
   const [isLoading, setIsLoading] = useState(true);
   const { id } = params;
+
   const router = useRouter();
+
+  const context = useContext(Context);
+  const { updateTitle } = context;
+
+  useEffect(() => {
+    updateTitle(project?.title ? `${project.title} Roadmap` : "Project Roadmap");
+  }, [project]);
 
   useEffect(() => {
     if (id) {

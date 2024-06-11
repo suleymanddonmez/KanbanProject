@@ -1,15 +1,20 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { ProjectType } from "@/models/project";
 import { fetchApi } from "./api/BaseActions";
+import { Context } from "@/app/contextProvider";
 
 export default function Home() {
   const [projects, setProjects] = useState<ProjectType[]>();
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
 
+  const context = useContext(Context);
+  const { updateTitle } = context;
+
   useEffect(() => {
+    updateTitle("All Projects");
     getProjects();
   }, []);
 
@@ -25,11 +30,11 @@ export default function Home() {
   };
 
   const handleProjectClick = (projectId: string) => {
-    router.push(`/project/${projectId}`);
+    router.push(`/projects/${projectId}`);
   };
 
   const handleAddProjectClick = () => {
-    router.push(`/project/new`);
+    router.push(`/projects/new`);
   };
 
   return (
@@ -41,7 +46,10 @@ export default function Home() {
             by Süleyman Dönmez
           </a>
         </div>
-        <button className="text-xl font-bold p-5 rounded-2xl bg-indigo-500 cursor-pointer hover:bg-neutral-600 transition-all" onClick={() => handleAddProjectClick()}>
+        <button
+          className="text-xl font-bold p-5 rounded-2xl bg-indigo-500 cursor-pointer hover:bg-neutral-600 transition-all"
+          onClick={() => handleAddProjectClick()}
+        >
           + New Project
         </button>
       </div>

@@ -140,11 +140,15 @@ function TaskForm({ taskInfo, onSave, onDelete, isLoading }: TaskFormPropsType) 
               onChange={(e) => {
                 let val = e.target.value;
                 let copiedTags = [...(tags || [])];
-                let index = copiedTags.findIndex((t) => t === val);
-                if (index > -1) {
-                  copiedTags.splice(index, 1);
+                if (val) {
+                  let index = copiedTags.findIndex((t) => t === val);
+                  if (index > -1) {
+                    copiedTags.splice(index, 1);
+                  } else {
+                    copiedTags.push(val);
+                  }
                 } else {
-                  copiedTags.push(val);
+                  copiedTags = [];
                 }
                 setTags(copiedTags);
               }}
