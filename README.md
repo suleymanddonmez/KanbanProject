@@ -57,6 +57,18 @@ To run the project, follow these steps:
 
 5. Open [http://localhost:3000](http://localhost:3000) in your browser to see the result.
 
+### API Documentation
+
+API endpoints and details for this project can be found in the Postman collection located at api/postman_collection.json. You can import this collection into Postman to test and explore the API. To test the endpoints, follow these steps:
+
+1. Download and install [Postman](https://www.postman.com/downloads/).
+2. Import the Postman Collection into Postman:
+    - Open Postman and go to `File > Import`.
+    - Select the `api/postman-collection.json` file from your local directory.
+3. Use the imported collection to test and explore the API endpoints. Each request in the collection is pre-configured with the necessary HTTP methods, headers, and request bodies.
+
+For more information on how to use Postman collections, refer to the [Postman Documentation](https://www.postman.com/collection/).
+
 ### Resources
 
 To learn more about the technologies used in this project, you can explore the following resources:
@@ -64,11 +76,12 @@ To learn more about the technologies used in this project, you can explore the f
 - [Next.js Documentation](https://nextjs.org/docs) - Learn about Next.js features and API.
 - [Learn Next.js](https://nextjs.org/learn) - Interactive Next.js tutorial.
 - [Next.js GitHub Repository](https://github.com/vercel/next.js/) - Your feedback and contributions are welcome!
-- [React Documentation](https://reactjs.org/docs/getting-started.html) - Learn about React, the library that Next.js is built upon.
+- [React Documentation](https://react.dev/learn) - Learn about React, the library that Next.js is built upon.
 - [TypeScript Documentation](https://www.typescriptlang.org/docs/) - Learn about TypeScript, the superset of JavaScript that adds static types.
 - [Tailwind CSS Documentation](https://tailwindcss.com/docs) - Learn about Tailwind CSS, the utility-first CSS framework.
 - [MongoDB Documentation](https://www.mongodb.com/docs) - Learn about MongoDB features and connections.
 - [Mongoose Documentation](https://mongoosejs.com/docs/guide.html) - Learn about Mongoose, the object modeling tool for MongoDB.
+- [Postman Documentation](https://www.postman.com/product/what-is-postman/) - Learn about Postman usage.
 
 ### Deploy on Vercel
 

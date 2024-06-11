@@ -2,7 +2,7 @@
 	"info": {
 		"_postman_id": "604610d6-d549-4a49-8f24-4c061907d854",
 		"name": "Kanban Project",
-		"description": "# 🚀 Get started here\n\nThis template guides you through CRUD operations (GET, POST, PUT, DELETE), variables, and tests.\n\n## 🔖 **How to use this template**\n\n#### **Step 1: Send requests**\n\nRESTful APIs allow you to perform CRUD operations using the POST, GET, PUT, and DELETE HTTP methods.\n\nThis collection contains each of these [request](https://learning.postman.com/docs/sending-requests/requests/) types. Open each request and click \"Send\" to see what happens.\n\n#### **Step 2: View responses**\n\nObserve the response tab for status code (200 OK), response time, and size.\n\n#### **Step 3: Send new Body data**\n\nUpdate or add new data in \"Body\" in the POST request. Typically, Body data is also used in PUT request.\n\n```\n{\n    \"name\": \"Add your name in the body\"\n}\n\n ```\n\n#### **Step 4: Update the variable**\n\nVariables enable you to store and reuse values in Postman. We have created a [variable](https://learning.postman.com/docs/sending-requests/variables/) called `base_url` with the sample request [https://postman-api-learner.glitch.me](https://postman-api-learner.glitch.me). Replace it with your API endpoint to customize this collection.\n\n#### **Step 5: Add tests in the \"Scripts\" tab**\n\nAdding tests to your requests can help you confirm that your API is working as expected. You can write test scripts in JavaScript and view the output in the \"Test Results\" tab.\n\n<img src=\"https://content.pstmn.io/fa30ea0a-373d-4545-a668-e7b283cca343/aW1hZ2UucG5n\" alt=\"\" height=\"1530\" width=\"2162\">\n\n## 💪 Pro tips\n\n- Use folders to group related requests and organize the collection.\n    \n- Add more [scripts](https://learning.postman.com/docs/writing-scripts/intro-to-scripts/) to verify if the API works as expected and execute workflows.\n    \n\n## 💡Related templates\n\n[API testing basics](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=e9a37a28-055b-49cd-8c7e-97494a21eb54&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)  \n[API documentation](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=e9c28f47-1253-44af-a2f3-20dce4da1f18&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)  \n[Authorization methods](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=31a9a6ed-4cdf-4ced-984c-d12c9aec1c27&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)",
+		"description": "## Kanban Task Project\n\nThis project is a Kanban Task application developed using Next.js, a framework for React, and MongoDB as the database. The project is deployed using the Vercel Platform.\n\n### Technologies Used\n\n- **Next.js:** This project is built using Next.js, a powerful React framework that enables server-side rendering and static site generation. It provides great performance and SEO benefits.\n    \n- **React:** Next.js is built on top of React, a popular JavaScript library for building user interfaces. React allows us to create reusable UI components.\n    \n- **TypeScript:** TypeScript is used to enhance the development experience by providing static type checking, which helps in catching errors early and improves code quality and maintainability.\n    \n- **Tailwind CSS:** Tailwind CSS is a utility-first CSS framework used in this project to create a highly customizable and responsive design. It allows for rapid UI development with minimal custom CSS.\n    \n- **MongoDB and Mongoose:** MongoDB is the database used for storing project, task list, and task data. Mongoose is an object data modeling (ODM) library for MongoDB and Node.js. It provides a straightforward, schema-based solution to model application data, making data validation and querying easier.\n    \n\nYou can access the live version of the project through the following link:\n\n- [Kanban Project](https://kanban-project-lake.vercel.app/)\n    \n\n### Features\n\n- **Built with Next.js:** Developed using Next.js, a modern and fast React framework.\n    \n- **3 Main Models:** Consists of 3 main models: Project, TaskList, and Task.\n    \n- **Jira-Like Kanban Task Management:** Each project provides a Jira-like kanban task management system where you can view task lists and tasks within the project.\n    \n- **Connected Data Structure:** Task lists are associated with projects, and tasks are associated with task lists.\n    \n- **Project List Page:** All projects are listed on the project homepage with their names.\n    \n- **Project Pages:** Separate pages are available for each project. These pages list the task lists belonging to the project, and each task list can display its own tasks.\n    \n- **Dynamic Task Management:** You can edit, delete, and drag-and-drop tasks within a task list to reorder them. Additionally, tasks can be dragged and dropped to another task list.\n    \n- **Responsive Design:** The project features a responsive design that adapts to all devices.\n    \n- **Recently Visited Pages:** Recently visited pages within the project are stored in local storage and displayed in the footer area.\n    \n\n### Getting Started\n\nTo run the project, follow these steps:\n\n1. git clone https://github.com/suleymanddonmez/KanbanProject.git\n    \n2. npm install\n    \n3. //.env file contentCONNECTIONSTR=mongodb+srv://:@.mongodb.net/?retryWrites=true&w=majority&appName=...\n    \n4. npm run dev\n    \n5. Open [http://localhost:3000](http://localhost:3000/) in your browser to see the result.\n    \n\n### Resources\n\nTo learn more about the technologies used in this project, you can explore the following resources:\n\n- [Next.js Documentation](https://nextjs.org/docs) - Learn about Next.js features and API.\n    \n- [Learn Next.js](https://nextjs.org/learn) - Interactive Next.js tutorial.\n    \n- [Next.js GitHub Repository](https://github.com/vercel/next.js/) - Your feedback and contributions are welcome!\n    \n- [React Documentation](https://reactjs.org/docs/getting-started.html) - Learn about React, the library that Next.js is built upon.\n    \n- [TypeScript Documentation](https://www.typescriptlang.org/docs/) - Learn about TypeScript, the superset of JavaScript that adds static types.\n    \n- [Tailwind CSS Documentation](https://tailwindcss.com/docs) - Learn about Tailwind CSS, the utility-first CSS framework.\n    \n- [MongoDB Documentation](https://www.mongodb.com/docs) - Learn about MongoDB features and connections.\n    \n- [Mongoose Documentation](https://mongoosejs.com/docs/guide.html) - Learn about Mongoose, the object modeling tool for MongoDB.\n    \n\n### Deploy on Vercel\n\nThe easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.\n\nCheck out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.\n\n### Contributing\n\nIf you'd like to contribute to this project, please fork the repository and use a feature branch. Pull requests are warmly welcome.\n\n1. Fork the repository.\n    \n2. Create a new feature branch.\n    \n3. Commit your changes.\n    \n4. Push to the branch.\n    \n5. Create a new pull request.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "17672953"
 	},
@@ -39,7 +39,7 @@
 								"projects"
 							]
 						},
-						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+						"description": "**Get All Projects:**  \n_Description:_ This GET request is used to fetch all projects in an application. Since it's a GET request, there is no request body.  \n_Success Status:_ A successful GET response typically has a status code of 200 OK and may contain JSON data in the response body."
 					},
 					"response": []
 				},
@@ -73,7 +73,7 @@
 								"6667367d7007c241269b1152"
 							]
 						},
-						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+						"description": "**Get Project By Id:**  \n_Description:_ This GET request is used to retrieve information about a specific project. Similarly, this is also a GET request and doesn't have a request body. The id information should be appended to the URL path.  \n_Success Status:_ A successful GET response usually has a status code of 200 OK and may contain JSON data in the response body."
 					},
 					"response": []
 				},
@@ -116,7 +116,7 @@
 								"projects"
 							]
 						},
-						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+						"description": "**Create New Project:**  \n_Description:_ This POST request is used to send data to an API. This request sends JSON data, and the response reflects this data.  \n_Success Status:_ A successful POST request generally returns with a status code of 200 OK or 201 Created."
 					},
 					"response": []
 				},
@@ -160,7 +160,7 @@
 								"6667370c0ff9ee53c526a97d"
 							]
 						},
-						"description": "This is a DELETE request, and it is used to delete data that was previously created via a POST request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful DELETE request typically returns a `200 OK`, `202 Accepted`, or `204 No Content` response code."
+						"description": "**Delete Project By Id:**  \n_Description:_ This DELETE request is used to delete previously created data. The id information should be appended to the URL path.  \n_Success Status:_ A successful DELETE request typically returns with a status code of 200 OK, 202 Accepted, or 204 No Content."
 					},
 					"response": []
 				},
@@ -204,11 +204,12 @@
 								"6667367d7007c241269b1152"
 							]
 						},
-						"description": "This is a PUT request and it is used to overwrite an existing piece of data. For instance, after you create an entity with a POST request, you may want to modify that later. You can do that using a PUT request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful PUT request typically returns a `200 OK`, `201 Created`, or `204 No Content` response code."
+						"description": "**Update Tasks in Project By Id:**  \n_Description:_ This PATCH request is used to update existing data. This service allows updating tasks by using drag and drop, altering the associated Task List information or changing the order of tasks within a Task List. The id information should be appended to the URL path.  \n_Success Status:_ A successful PUT request generally returns with a status code of 200 OK, 201 Created, or 204 No Content."
 					},
 					"response": []
 				}
-			]
+			],
+			"description": "**Get All Projects:**  \n_Description:_ This GET request is used to fetch all projects in an application. Since it's a GET request, there is no request body.  \n_Success Status:_ A successful GET response typically has a status code of 200 OK and may contain JSON data in the response body.\n\n**Get Project By Id:**  \n_Description:_ This GET request is used to retrieve information about a specific project. Similarly, this is also a GET request and doesn't have a request body. The id information should be appended to the URL path.  \n_Success Status:_ A successful GET response usually has a status code of 200 OK and may contain JSON data in the response body.\n\n**Create New Project:**  \n_Description:_ This POST request is used to send data to an API. This request sends JSON data, and the response reflects this data.  \n_Success Status:_ A successful POST request generally returns with a status code of 200 OK or 201 Created.\n\n**Delete Project By Id:**  \n_Description:_ This DELETE request is used to delete previously created data. The id information should be appended to the URL path.  \n_Success Status:_ A successful DELETE request typically returns with a status code of 200 OK, 202 Accepted, or 204 No Content.\n\n**Update Tasks in Project By Id:**  \n_Description:_ This PATCH request is used to update existing data. This service allows updating tasks by using drag and drop, altering the associated Task List information or changing the order of tasks within a Task List. The id information should be appended to the URL path.  \n_Success Status:_ A successful PUT request generally returns with a status code of 200 OK, 201 Created, or 204 No Content."
 		},
 		{
 			"name": "TaskLists",
@@ -242,7 +243,7 @@
 								"taskLists"
 							]
 						},
-						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+						"description": "**Get All TaskLists**:  \n_Description:_ This GET request is used to fetch all task lists in an application. Since it's a GET request, there is no request body.  \n_Success Status:_ A successful GET response typically has a status code of 200 OK and may contain JSON data in the response body."
 					},
 					"response": []
 				},
@@ -276,7 +277,7 @@
 								"6666f967a149e14e2e550f43"
 							]
 						},
-						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+						"description": "**Get TaskList By Id**:  \n_Description:_ This GET request is used to retrieve information about a specific task list. Similarly, this is also a GET request and doesn't have a request body. The id information should be appended to the URL path.  \n_Success Status:_ A successful GET response usually has a status code of 200 OK and may contain JSON data in the response body."
 					},
 					"response": []
 				},
@@ -311,7 +312,7 @@
 								"6667367d7007c241269b1152"
 							]
 						},
-						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+						"description": "**Get TaskLists By ProjectId**:  \n_Description:_ This GET request is used to fetch task lists belonging to a specific project. This is also a GET request and doesn't have a request body. The id information should be appended to the URL path.  \n_Success Status:_ A successful GET response typically has a status code of 200 OK and may contain JSON data in the response body."
 					},
 					"response": []
 				},
@@ -354,7 +355,7 @@
 								"taskLists"
 							]
 						},
-						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+						"description": "**Create New TaskList**:  \n_Description:_ This POST request is used to send data to an API. This request sends JSON data, and the response reflects this data.  \n_Success Status:_ A successful POST request generally returns with a status code of 200 OK or 201 Created."
 					},
 					"response": []
 				},
@@ -398,7 +399,7 @@
 								"6667390a546c9c394b7b648b"
 							]
 						},
-						"description": "This is a DELETE request, and it is used to delete data that was previously created via a POST request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful DELETE request typically returns a `200 OK`, `202 Accepted`, or `204 No Content` response code."
+						"description": "**Delete TaskList By Id**:  \n_Description:_ This DELETE request is used to delete previously created data. The id information should be appended to the URL path.  \n_Success Status:_ A successful DELETE request typically returns with a status code of 200 OK, 202 Accepted, or 204 No Content."
 					},
 					"response": []
 				},
@@ -443,11 +444,12 @@
 								"6667367d7007c241269b1152"
 							]
 						},
-						"description": "This is a DELETE request, and it is used to delete data that was previously created via a POST request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful DELETE request typically returns a `200 OK`, `202 Accepted`, or `204 No Content` response code."
+						"description": "**Delete TaskLists By ProjectId**:  \n_Description:_ This DELETE request is used to delete previously created data. The id information should be appended to the URL path.  \n_Success Status:_ A successful DELETE request typically returns with a status code of 200 OK, 202 Accepted, or 204 No Content."
 					},
 					"response": []
 				}
-			]
+			],
+			"description": "**Get All TaskLists**:  \n_Description:_ This GET request is used to fetch all task lists in an application. Since it's a GET request, there is no request body.  \n_Success Status:_ A successful GET response typically has a status code of 200 OK and may contain JSON data in the response body.\n\n**Get TaskList By Id**:  \n_Description:_ This GET request is used to retrieve information about a specific task list. Similarly, this is also a GET request and doesn't have a request body. The id information should be appended to the URL path.  \n_Success Status:_ A successful GET response usually has a status code of 200 OK and may contain JSON data in the response body.\n\n**Get TaskLists By ProjectId**:  \n_Description:_ This GET request is used to fetch task lists belonging to a specific project. This is also a GET request and doesn't have a request body. The id information should be appended to the URL path.  \n_Success Status:_ A successful GET response typically has a status code of 200 OK and may contain JSON data in the response body.\n\n**Create New TaskList**:  \n_Description:_ This POST request is used to send data to an API. This request sends JSON data, and the response reflects this data.  \n_Success Status:_ A successful POST request generally returns with a status code of 200 OK or 201 Created.\n\n**Delete TaskList By Id**:  \n_Description:_ This DELETE request is used to delete previously created data. The id information should be appended to the URL path.  \n_Success Status:_ A successful DELETE request typically returns with a status code of 200 OK, 202 Accepted, or 204 No Content.\n\n**Delete TaskLists By ProjectId**:  \n_Description:_ This DELETE request is used to delete previously created data. The id information should be appended to the URL path.  \n_Success Status:_ A successful DELETE request typically returns with a status code of 200 OK, 202 Accepted, or 204 No Content."
 		},
 		{
 			"name": "Tasks",
@@ -481,7 +483,7 @@
 								"tasks"
 							]
 						},
-						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+						"description": "**Get All Tasks**:  \n_Description:_ This GET request is used to retrieve all tasks from an endpoint. There is no request body for a GET request.  \n_Success Status:_ A successful GET response typically returns with a status code of 200 OK and may include HTML web content or JSON data in the response body."
 					},
 					"response": []
 				},
@@ -515,7 +517,7 @@
 								"66673a62546c9c394b7b6494"
 							]
 						},
-						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+						"description": "**Get Task By Id**:  \n_Description:_ This GET request is used to fetch information about a specific task. Similarly to other GET requests, it doesn't have a request body, but the id information should be included in the URL path.  \n_Success Status:_ A successful GET response typically returns with a status code of 200 OK and may include HTML web content or JSON data in the response body."
 					},
 					"response": []
 				},
@@ -550,7 +552,7 @@
 								"66673a007007c241269b1186"
 							]
 						},
-						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+						"description": "**Get Tasks By TaskListId**:  \n_Description:_ This GET request is used to retrieve tasks belonging to a specific task list. This is a GET request and doesn't have a request body. The task list id information should be appended to the URL path.  \n_Success Status:_ A successful GET response typically returns with a status code of 200 OK and may include HTML web content or JSON data in the response body."
 					},
 					"response": []
 				},
@@ -593,7 +595,7 @@
 								"tasks"
 							]
 						},
-						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+						"description": "**Create New Task**:  \n_Description:_ This POST request is used to submit new task data to the API via the request body. It submits JSON data, and the response reflects this data.  \n_Success Status:_ A successful POST request typically returns with a status code of 200 OK or 201 Created."
 					},
 					"response": []
 				},
@@ -637,7 +639,7 @@
 								"66673a62546c9c394b7b6494"
 							]
 						},
-						"description": "This is a DELETE request, and it is used to delete data that was previously created via a POST request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful DELETE request typically returns a `200 OK`, `202 Accepted`, or `204 No Content` response code."
+						"description": "**Delete Task By Id**:  \n_Description:_ This DELETE request is used to delete previously created task data. The id information should be included in the URL path.  \n_Success Status:_ A successful DELETE request typically returns with a status code of 200 OK, 202 Accepted, or 204 No Content."
 					},
 					"response": []
 				},
@@ -682,7 +684,7 @@
 								"66673a007007c241269b1186"
 							]
 						},
-						"description": "This is a DELETE request, and it is used to delete data that was previously created via a POST request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful DELETE request typically returns a `200 OK`, `202 Accepted`, or `204 No Content` response code."
+						"description": "**Delete Tasks By TaskListId**:  \n_Description:_ This DELETE request is used to delete previously created tasks belonging to a specific task list. The task list id information should be included in the URL path.  \n_Success Status:_ A successful DELETE request typically returns with a status code of 200 OK, 202 Accepted, or 204 No Content."
 					},
 					"response": []
 				},
@@ -726,11 +728,12 @@
 								"66673a077007c241269b118d"
 							]
 						},
-						"description": "This is a PUT request and it is used to overwrite an existing piece of data. For instance, after you create an entity with a POST request, you may want to modify that later. You can do that using a PUT request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful PUT request typically returns a `200 OK`, `201 Created`, or `204 No Content` response code."
+						"description": "**Update Task By Id**:  \n_Description:_ This PATCH request is used to update existing task data. It overwrites the existing data with the new data provided in the request body. The task id information should be included in the URL path.  \n_Success Status:_ A successful PATCH request typically returns with a status code of 200 OK, 201 Created, or 204 No Content."
 					},
 					"response": []
 				}
-			]
+			],
+			"description": "**Get All Tasks**:  \n_Description:_ This GET request is used to retrieve all tasks from an endpoint. There is no request body for a GET request.  \n_Success Status:_ A successful GET response typically returns with a status code of 200 OK and may include HTML web content or JSON data in the response body.\n\n**Get Task By Id**:  \n_Description:_ This GET request is used to fetch information about a specific task. Similarly to other GET requests, it doesn't have a request body, but the id information should be included in the URL path.  \n_Success Status:_ A successful GET response typically returns with a status code of 200 OK and may include HTML web content or JSON data in the response body.\n\n**Get Tasks By TaskListId**:  \n_Description:_ This GET request is used to retrieve tasks belonging to a specific task list. This is a GET request and doesn't have a request body. The task list id information should be appended to the URL path.  \n_Success Status:_ A successful GET response typically returns with a status code of 200 OK and may include HTML web content or JSON data in the response body.\n\n**Create New Task**:  \n_Description:_ This POST request is used to submit new task data to the API via the request body. It submits JSON data, and the response reflects this data.  \n_Success Status:_ A successful POST request typically returns with a status code of 200 OK or 201 Created.\n\n**Delete Task By Id**:  \n_Description:_ This DELETE request is used to delete previously created task data. The id information should be included in the URL path.  \n_Success Status:_ A successful DELETE request typically returns with a status code of 200 OK, 202 Accepted, or 204 No Content.\n\n**Delete Tasks By TaskListId**:  \n_Description:_ This DELETE request is used to delete previously created tasks belonging to a specific task list. The task list id information should be included in the URL path.  \n_Success Status:_ A successful DELETE request typically returns with a status code of 200 OK, 202 Accepted, or 204 No Content.\n\n**Update Task By Id**:  \n_Description:_ This PATCH request is used to update existing task data. It overwrites the existing data with the new data provided in the request body. The task id information should be included in the URL path.  \n_Success Status:_ A successful PATCH request typically returns with a status code of 200 OK, 201 Created, or 204 No Content."
 		}
 	],
 	"event": [
@@ -761,7 +764,8 @@
 		{
 			"key": "base_url",
 			"value": "http://localhost:3000",
-			"type": "string"
+			"type": "string",
+			"disabled": true
 		}
 	]
 }
