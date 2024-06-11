@@ -16,8 +16,8 @@ function NewProject() {
   const { updateTitle } = context;
 
   useEffect(() => {
-    updateTitle("New Project");
-  }, []);
+    updateTitle?.("New Project");
+  }, [updateTitle]);
 
   const validateForm = () => {
     if (!title) {

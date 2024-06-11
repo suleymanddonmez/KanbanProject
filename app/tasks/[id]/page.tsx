@@ -18,12 +18,12 @@ function TaskAction({ params }: { params: { id: string } }) {
   const { updateTitle } = context;
 
   useEffect(() => {
-    updateTitle(task?.title || "Task Detail");
-  }, [task]);
+    updateTitle?.(task?.title || "Task Detail");
+  }, [task, updateTitle]);
 
   useEffect(() => {
     if (id) {
-      getTask();
+      getTask?.();
     }
   }, [id]);
 

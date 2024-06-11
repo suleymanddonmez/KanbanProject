@@ -19,24 +19,28 @@ function RouterListener() {
   const pathname = usePathname();
 
   useEffect(() => {
-    addThisPageInLastVisitedPages();
+    addThisPageInLastVisitedPages?.();
   }, [pathname, title]);
 
   const getLastVisitedPages = () => {
-    let savedInfoString = localStorage.getItem("lastVisitedPages");
     let lastVisitedPages: LastVisitedPageType[] = [];
-    if (savedInfoString) {
-      try {
-        lastVisitedPages = JSON.parse(savedInfoString);
-      } catch {
-        lastVisitedPages = [];
+    if (typeof window !== "undefined") {
+      let savedInfoString = localStorage.getItem("lastVisitedPages");
+      if (savedInfoString) {
+        try {
+          lastVisitedPages = JSON.parse(savedInfoString);
+        } catch {
+          lastVisitedPages = [];
+        }
       }
     }
     return lastVisitedPages;
   };
 
   const setLastVisitedPages = (lastVisitedPages: LastVisitedPageType[]) => {
-    localStorage.setItem("lastVisitedPages", JSON.stringify(lastVisitedPages));
+    if (typeof window !== "undefined") {
+      localStorage.setItem("lastVisitedPages", JSON.stringify(lastVisitedPages));
+    }
   };
 
   const addThisPageInLastVisitedPages = () => {

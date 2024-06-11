@@ -14,7 +14,10 @@ export default function Home() {
   const { updateTitle } = context;
 
   useEffect(() => {
-    updateTitle("All Projects");
+    updateTitle?.("All Projects");
+  }, [updateTitle]);
+
+  useEffect(() => {
     getProjects();
   }, []);
 

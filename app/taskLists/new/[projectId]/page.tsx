@@ -17,8 +17,8 @@ function NewTaskList({ params }: { params: { projectId: string } }) {
   const { updateTitle } = context;
 
   useEffect(() => {
-    updateTitle("New Task List");
-  }, []);
+    updateTitle?.("New Task List");
+  }, [updateTitle]);
 
   const validateForm = () => {
     if (!title) {

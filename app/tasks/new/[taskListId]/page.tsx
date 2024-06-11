@@ -17,8 +17,8 @@ function NewTask({ params }: { params: { taskListId: string } }) {
   const { updateTitle } = context;
 
   useEffect(() => {
-    updateTitle("New Task");
-  }, []);
+    updateTitle?.("New Task");
+  }, [updateTitle]);
 
   const saveTask = async (taskInfo: TaskType) => {
     setIsLoading(true);

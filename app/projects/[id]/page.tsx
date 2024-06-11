@@ -18,8 +18,8 @@ function Roadmap({ params }: { params: { id: string } }) {
   const { updateTitle } = context;
 
   useEffect(() => {
-    updateTitle(project?.title ? `${project.title} Roadmap` : "Project Roadmap");
-  }, [project]);
+    updateTitle?.(project?.title ? `${project.title} Roadmap` : "Project Roadmap");
+  }, [project, updateTitle]);
 
   useEffect(() => {
     if (id) {
