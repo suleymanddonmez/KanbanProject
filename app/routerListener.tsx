@@ -73,8 +73,9 @@ function RouterListener() {
   return (
     <>
       <div className="flex overflow-hidden gap-3 fixed left-0 bottom-0 bg-slate-600 w-full">
+        {recentlyVisitedPages.length > 0 && <div className="font-bold p-2">Recently Visited Pages :</div>}
         {recentlyVisitedPages.map((lastPage, index) => (
-          <button key={index} className="font-bold p-2 hover:bg-slate-500 transition-all" onClick={() => router.push(lastPage.pathname)}>
+          <button key={index} className="font-medium p-2 hover:bg-slate-500 transition-all" onClick={() => router.push(lastPage.pathname)}>
             {lastPage.pageTitle}
           </button>
         ))}
