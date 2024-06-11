@@ -7,12 +7,14 @@ import { DragDropContext, DropResult } from "react-beautiful-dnd";
 import TaskList from "@/components/TaskList";
 import { Context } from "@/app/contextProvider";
 
-export const notDeleteableProjectId = "6666f966a149e14e2e550f39";
+const notDeleteableProjectId = "6666f966a149e14e2e550f39";
+const defaultTaskLists = ["Backlog", "To do", "In progress", "Designed"];
 
 function Roadmap({ params }: { params: { id: string } }) {
   const [project, setProject] = useState<ProjectType>();
   const [isLoading, setIsLoading] = useState(true);
   const { id } = params;
+  const notDeletable = notDeleteableProjectId == id;
 
   const router = useRouter();
 
@@ -36,6 +38,7 @@ function Roadmap({ params }: { params: { id: string } }) {
       setProject(response.data);
     } else {
       console.log(response.error);
+      alert("An error occurred!");
     }
     setIsLoading(false);
   };
@@ -83,7 +86,7 @@ function Roadmap({ params }: { params: { id: string } }) {
   };
 
   const deleteProject = async () => {
-    if (notDeleteableProjectId == id) {
+    if (notDeletable) {
       alert("This project is example project. It is not deletable! Please try in another project.");
       return;
     }
@@ -92,6 +95,7 @@ function Roadmap({ params }: { params: { id: string } }) {
       router.push(`/`);
     } else {
       console.log(response.error);
+      alert("An error occurred!");
     }
   };
 
@@ -133,7 +137,12 @@ function Roadmap({ params }: { params: { id: string } }) {
         <div className="grid grid-cols-1 gap-5 mb-20 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
           <DragDropContext onDragEnd={onDragEnd}>
             {project.items.map((taskList, index) => (
-              <TaskList key={taskList.key} taskList={taskList} />
+              <TaskList
+                key={taskList.key}
+                taskList={taskList}
+                notDeletable={notDeletable && defaultTaskLists.indexOf(taskList.title) > -1}
+                refreshProject={() => getProject(id)}
+              />
             ))}
           </DragDropContext>
         </div>

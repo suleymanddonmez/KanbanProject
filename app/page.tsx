@@ -28,6 +28,7 @@ export default function Home() {
       setProjects(response.data);
     } else {
       console.log(response.error);
+      alert("An error occurred!");
     }
     setIsLoading(false);
   };
